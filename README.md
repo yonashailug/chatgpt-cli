@@ -1,6 +1,10 @@
 # chatgpt-cli
 Interactive Chatgpt cli made with nodejs
 
+> You can easily access chatgpt features from your terminal
+
+![Demo](/assets/screenshot.png?raw=true "Demo")
+
 ## Usage
 
 I recommend installing the tool globally, so that you can make use of it no matter where you are, but you can take out `-g` flag if you want to use it in particular work instead:
