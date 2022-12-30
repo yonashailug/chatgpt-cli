@@ -2,7 +2,11 @@
   "name": "chatgpt-cli",
   "version": "1.0.0",
   "description": "Interactive Chatgpt cli made with nodejs",
-  "main": "index.js",
+  "main": "bin/index.js",
+  "type": "module",
+  "bin": {
+    "chatgpt-cli": "bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,9 +19,16 @@
     "cli"
   ],
   "author": "Yonas G. <yonashailug@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/yonashailug/chatgpt-cli/issues"
   },
-  "homepage": "https://github.com/yonashailug/chatgpt-cli#readme"
+  "homepage": "https://github.com/yonashailug/chatgpt-cli#readme",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "configstore": "^6.0.0",
+    "inquirer": "^9.1.4",
+    "openai": "^3.1.0",
+    "yargs": "^17.6.2"
+  }
 }
