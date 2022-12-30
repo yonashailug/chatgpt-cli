@@ -4,6 +4,7 @@
   "description": "Interactive Chatgpt cli made with nodejs",
   "main": "bin/index.js",
   "type": "module",
+  "preferGlobal": true,
   "bin": {
     "chatgpt-cli": "bin/index.js"
   },
