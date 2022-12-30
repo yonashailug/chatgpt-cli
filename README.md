@@ -3,9 +3,10 @@ Interactive Chatgpt cli made with nodejs
 
 ## Setup
 
-Install the packages by running the script `npm install chatgpt-cli`
+Install the package by running the script `npm install chatgpt-cli`
 
-Run the package `chatgpt-cli` and default model is `text-davinci-003` and can be provided by `-m model-id-2` or `--model model-id-2`
+Run the package `chatgpt-cli`
+> default model is `text-davinci-003` and can be provided by `-m model-id-2` or `--model model-id-2`
 
 ## Configuration
 

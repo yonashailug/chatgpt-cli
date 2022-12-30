@@ -9,7 +9,7 @@
     "chatgpt-cli": "bin/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "release": "npx bumpp --commit --push --tag"
   },
   "repository": {
     "type": "git",
