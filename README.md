@@ -1,13 +1,27 @@
 # chatgpt-cli
 Interactive Chatgpt cli made with nodejs
 
-## Setup
+## Usage
 
-Install the package by running the script `npm install chatgpt-cli`
+I recommend installing the tool globally, so that you can make use of it no matter where you are, but you can take out `-g` flag if you want to use it in particular work instead:
 
-Run the package `chatgpt-cli`
-> default model is `text-davinci-003` and can be provided by `-m model-id-2` or `--model model-id-2`
+```
+npm i -g chatgpt-cli
+```
+
+> Note: You may need to run `sudo` before this command `sudo npm i -g chatgpt-cli`
+
+Then, to kick off the tool, type:
+
+```
+chatgpt-cli
+```
+
+You will be guided through prompts
+
+To use different model types you can pass the model type to end of the script
+> `chatgpt-cli -m model-id-2` or `chatgpt-cli --model model-id-2`, the default model is `text-davinci-003`
 
 ## Configuration
 
-To use chatgpt's feature requires api key to be generate and can be generated [here](https://beta.openai.com/account/api-keys) and when you run this npm package it will prompt to enter api key and save it.
+To use chatgpt's feature require api key to be generated and can be generated [here](https://beta.openai.com/account/api-keys) and when you run this npm package it will prompt to enter api key and save it.
