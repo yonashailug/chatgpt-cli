@@ -3,7 +3,7 @@ Interactive Chatgpt cli made with nodejs
 
 > You can easily access chatgpt features from your terminal
 
-![Demo](/assets/screenshot.png?raw=true "Demo")
+![Demo](/assets/screenshot.gif?raw=true "Demo")
 
 ## Usage
 
