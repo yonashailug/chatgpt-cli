@@ -1,38 +1,41 @@
 import chalk from 'chalk'
 import yargs from 'yargs'
 import inquirer from 'inquirer'
+import hyperlinker from 'hyperlinker'
 import { Configuration, OpenAIApi } from 'openai'
 
 import { store, API_KEY } from './store.js'
 
+const log = console.log
+
 yargs(process.argv)
 .scriptName('chatgpt-cli')
+.showHelpOnFail(false)
 .alias('v', 'version')
 .alias('h', 'help')
-.showHelpOnFail(false)
-  .command(
+.command(
     '*',
     'Do something awesome with Chatgpt',
     () => {},
     async argv => {
 
-        console.log(` ${chalk.blue('Chatgpt-cli ')}${chalk.cyan(`default model: ${argv.model}`)} \n`)
+        log(` ${chalk.blue('Chatgpt-cli ')}${chalk.cyan(`default model: ${argv.model}`)} \n`)
 
-        const apiKeyExists = store.get(API_KEY)
+        const apiKeyExist = store.get(API_KEY)
 
         const questions = [
             {
                 type: 'password',
                 name: 'apiKey',
-                message: 'Chatgpt\'s Api key not found. Please generate and enter your api-key',
+                message: `Chatgpt's Api key not found. Please generate and enter your api-key. ${chalk.yellow(hyperlinker('Link ') + 'https://beta.openai.com/account/api-keys')}`,
                 when() {
-                    return !apiKeyExists
+                    return !apiKeyExist
                 },
             },
             {
                 type: 'input',
                 name: 'question',
-                message: 'Enter your question',
+                message: 'What would you like to ask',
             }
         ]
 
@@ -56,7 +59,7 @@ yargs(process.argv)
             })
 
             data.choices.forEach(choice => {
-                console.log(`\n ${chalk.blue(choice.text.trim())} \n`)
+                log(`\n ${chalk.blue(choice.text.trim())} \n`)
             })
 
         })
