@@ -2,4 +2,4 @@
 
 'use strict'
 
-import '../cli.js'
+import '../src/cli.js'
