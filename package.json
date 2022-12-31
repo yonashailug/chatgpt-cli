@@ -1,5 +1,5 @@
 {
-  "name": "chatgpt-cli",
+  "name": "@yonashailug/chatgpt-cli",
   "version": "0.1.1",
   "description": "Interactive Chatgpt cli made with nodejs",
   "main": "bin/index.js",
@@ -9,7 +9,7 @@
     "chatgpt-cli": "bin/index.js"
   },
   "scripts": {
-    "release": "npx bumpp --commit --push --tag"
+    "release": "npx bumpp --commit --push --tag && npm publish"
   },
   "repository": {
     "type": "git",
