@@ -10,10 +10,10 @@ Interactive Chatgpt cli made with nodejs
 I recommend installing the tool globally, so that you can make use of it no matter where you are, but you can take out `-g` flag if you want to use it in particular work instead:
 
 ```
-npm i -g chatgpt-cli
+npm i -g @yonashailug/chatgpt-cli
 ```
 
-> Note: You may need to run `sudo` before this command `sudo npm i -g chatgpt-cli`
+> Note: You may need to run `sudo` before this command `sudo npm i -g @yonashailug/chatgpt-cli`
 
 Then, to kick off the tool, type:
 

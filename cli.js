@@ -22,7 +22,7 @@ yargs(process.argv)
 
         const questions = [
             {
-                type: 'input',
+                type: 'password',
                 name: 'apiKey',
                 message: 'Chatgpt\'s Api key not found. Please generate and enter your api-key',
                 when() {
