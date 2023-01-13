@@ -7,6 +7,7 @@ import { store, API_KEY } from './store.js'
 
 const log = console.log
 const apiKeyExist = store.get(API_KEY)
+let inProgress = false
 
 const questions = [
   {
@@ -21,7 +22,16 @@ const questions = [
     type: 'input',
     name: 'question',
     message: 'What would you like to ask'
-  }
+  },
+  {
+    type: 'confirm',
+    name: 'askAgain',
+    message: 'Would you like to ask again?',
+    default: false,
+    when() {
+      return inProgress
+    }
+  },
 ]
 
 export function question (argv) {
@@ -30,6 +40,7 @@ export function question (argv) {
       store.set(API_KEY, answer.apiKey)
     }
 
+    inProgress = true
     const configuration = new Configuration({
       apiKey: store.get(API_KEY)
     })
@@ -46,6 +57,12 @@ export function question (argv) {
     data.choices.forEach(choice => {
       log(`\n ${chalk.blue(choice.text.trim())} \n`)
     })
+
+    if (answer.askAgain) {
+      console.log({ an: answer.askAgain })
+    }
   })
-    .catch(console.error)
+    .catch(error => {
+      log(`[Error: ${error?.message}]`)
+    })
 }
