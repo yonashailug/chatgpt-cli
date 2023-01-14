@@ -2,12 +2,13 @@ import inquirer from 'inquirer'
 import chalk from 'chalk'
 import hyperlinker from 'hyperlinker'
 import { Configuration, OpenAIApi } from 'openai'
+import { Subject } from 'rxjs';
 
 import { store, API_KEY } from './store.js'
 
-const log = console.log
+const prompts = new Subject()
 const apiKeyExist = store.get(API_KEY)
-let inProgress = false
+const log = console.log
 
 const questions = [
   {
@@ -21,48 +22,64 @@ const questions = [
   {
     type: 'input',
     name: 'question',
-    message: 'What would you like to ask'
-  },
-  {
-    type: 'confirm',
-    name: 'askAgain',
-    message: 'Would you like to ask again?',
-    default: false,
-    when() {
-      return inProgress
-    }
+    message: 'What would you like to ask',
+    askAnswered: true,
   },
 ]
 
-export function question (argv) {
-  inquirer.prompt(questions).then(async answer => {
-    if (answer.apiKey) {
-      store.set(API_KEY, answer.apiKey)
-    }
+const confirm = {
+  type: 'confirm',
+  name: 'askAgain',
+  message: 'Continue asking?',
+  default: false,
+  askAnswered: true,
+}
 
-    inProgress = true
-    const configuration = new Configuration({
-      apiKey: store.get(API_KEY)
-    })
+export function question ({ model, temperature, maxTokens }) {
 
-    const openai = new OpenAIApi(configuration)
+  inquirer.prompt(prompts).ui.process.subscribe({
+    next: async ({ name, answer }) => {
 
-    const { data } = await openai.createCompletion({
-      model: argv.model,
-      prompt: answer.question,
-      temperature: argv.temperature,
-      max_tokens: argv.maxTokens
-    })
+      if (name === 'askAgain') {
+        if (!answer) {
+          prompts.complete()
+          return process.exit(0)
+        }
 
-    data.choices.forEach(choice => {
-      log(`\n ${chalk.blue(choice.text.trim())} \n`)
-    })
+        return prompts.next(questions[1])
+      }
 
-    if (answer.askAgain) {
-      console.log({ an: answer.askAgain })
-    }
-  })
-    .catch(error => {
+      if (name === 'apiKey') {
+        return store.set(API_KEY, answer)
+      }
+
+      const configuration = new Configuration({
+        apiKey: store.get(API_KEY)
+      })
+
+      const openai = new OpenAIApi(configuration)
+
+      const { data } = await openai.createCompletion({
+        model,
+        temperature,
+        prompt: answer,
+        max_tokens: maxTokens
+      })
+
+      data.choices.forEach(choice => {
+        log(`\n ${chalk.blue(choice.text.trim())} \n`)
+      })
+
+      prompts.next(confirm)
+
+    },
+    error: (error) => {
       log(`[Error: ${error?.message}]`)
-    })
+    },
+  })
+
+  questions.forEach(currentQuestion => {
+    prompts.next(currentQuestion)
+  })
+
 }
