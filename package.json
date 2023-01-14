@@ -1,6 +1,6 @@
 {
   "name": "@yonashailug/chatgpt-cli",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Interactive Chatgpt cli made with nodejs",
   "main": "bin/index.js",
   "type": "module",
