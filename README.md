@@ -1,5 +1,5 @@
 # chatgpt-cli
-Interactive Chatgpt cli made with nodejs
+Interactive command line tool to access Chatgpt's feature
 
 > You can easily access chatgpt features from your terminal
 
@@ -29,3 +29,5 @@ To use different model types you can pass the model type to end of the script
 ## Configuration
 
 To use chatgpt's feature require api key to be generated and can be generated [here](https://beta.openai.com/account/api-keys) and when you run this npm package it will prompt to enter api key and save it.
+
+> To enter api key in case of expire or miss typing, please use the command below `chatgpt-cli -k`
