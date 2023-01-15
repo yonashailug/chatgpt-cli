@@ -7,16 +7,17 @@ import { Subject } from 'rxjs';
 import { store, API_KEY } from './store.js'
 
 const prompts = new Subject()
-const apiKeyExist = store.get(API_KEY)
+let apiKeyNotExistOrExpire = !!store.get(API_KEY)
 const log = console.log
 
 const questions = [
   {
     type: 'password',
     name: 'apiKey',
-    message: `Chatgpt's Api key not found. Please generate and enter your api-key. ${chalk.yellow(hyperlinker('Link'))} https://beta.openai.com/account/api-keys`,
+    message: `Need Chatgpt's Api key. Please enter your api-key. ${chalk.yellow(hyperlinker('Link to generate'))} https://beta.openai.com/account/api-keys`,
+    askAnswered: true,
     when () {
-      return !apiKeyExist
+      return !apiKeyNotExistOrExpire
     }
   },
   {
@@ -35,7 +36,11 @@ const confirm = {
   askAnswered: true,
 }
 
-export function question ({ model, temperature, maxTokens }) {
+export function question ({ model, temperature, maxTokens, enterApiKey }) {
+
+  if (enterApiKey) {
+    apiKeyNotExistOrExpire = false
+  }
 
   inquirer.prompt(prompts).ui.process.subscribe({
     next: async ({ name, answer }) => {

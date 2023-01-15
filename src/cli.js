@@ -37,4 +37,10 @@ yargs(process.argv)
     desc: 'The maximum number of tokens to generate in the completion.',
     alias: 's'
   })
+  .option('enterApiKey', {
+    type: 'boolean',
+    default: false,
+    desc: 'Enable to prompt to enter a api key',
+    alias: 'k'
+  })
   .parse()
