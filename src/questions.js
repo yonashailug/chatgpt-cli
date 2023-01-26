@@ -58,24 +58,32 @@ export function question ({ model, temperature, maxTokens, enterApiKey }) {
         return store.set(API_KEY, answer)
       }
 
-      const configuration = new Configuration({
-        apiKey: store.get(API_KEY)
-      })
+      try {
 
-      const openai = new OpenAIApi(configuration)
+        const configuration = new Configuration({
+          apiKey: store.get(API_KEY)
+        })
 
-      const { data } = await openai.createCompletion({
-        model,
-        temperature,
-        prompt: answer,
-        max_tokens: maxTokens
-      })
+        const openai = new OpenAIApi(configuration)
 
-      data.choices.forEach(choice => {
-        log(`\n ${chalk.blue(choice.text.trim())} \n`)
-      })
+        const { data } = await openai.createCompletion({
+          model,
+          temperature,
+          prompt: answer,
+          max_tokens: maxTokens
+        })
+  
+        data.choices.forEach(choice => {
+          log(`\n ${chalk.blue(choice.text.trim())} \n`)
+        })
+  
+        prompts.next(confirm)
 
-      prompts.next(confirm)
+      } catch(error) {
+        log(`[Error: ${error?.message}]`)
+        prompts.complete()
+        process.exit(0)
+      }
 
     },
     error: (error) => {
